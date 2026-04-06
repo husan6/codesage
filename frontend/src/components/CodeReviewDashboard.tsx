@@ -120,6 +120,26 @@ function CodeReviewDashboard() {
   const [aiStatus, setAiStatus] = useState<ApiStatusResponse | null>(null);
   const [statusError, setStatusError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const demoStartedRef = useRef(false);
+
+  const demoConfig = useMemo(() => {
+    if (typeof window === 'undefined') {
+      return null;
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const demo = params.get('demo');
+    const section = params.get('section');
+
+    if (demo !== 'snippet' && demo !== 'github') {
+      return null;
+    }
+
+    return {
+      demo,
+      section: section ?? '',
+    };
+  }, []);
 
   useEffect(() => {
     let active = true;
@@ -274,6 +294,51 @@ function CodeReviewDashboard() {
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    if (!demoConfig || demoStartedRef.current) {
+      return;
+    }
+
+    demoStartedRef.current = true;
+
+    if (demoConfig.demo === 'snippet') {
+      setInputMode('snippet');
+      setFilename('sample-review.ts');
+      setCode(sampleSnippet);
+      setFocus('full');
+      void submitRequest('/api/review', {
+        code: sampleSnippet,
+        filename: 'sample-review.ts',
+        focus: 'full',
+      });
+      return;
+    }
+
+    setInputMode('github');
+    setGitHubRepositoryInput('octocat/Hello-World');
+    setGitHubUrl(exampleGitHubUrl);
+    setFocus('full');
+    void submitRequest('/api/review/github', {
+      url: exampleGitHubUrl,
+      focus: 'full',
+    });
+  }, [demoConfig]);
+
+  useEffect(() => {
+    if (!result || !demoConfig?.section) {
+      return;
+    }
+
+    const target = document.getElementById(`capture-${demoConfig.section}`);
+    if (!target) {
+      return;
+    }
+
+    window.requestAnimationFrame(() => {
+      target.scrollIntoView({ behavior: 'auto', block: 'start' });
+    });
+  }, [demoConfig, result]);
 
   async function fetchGitHubRepository() {
     if (!githubRepositoryInput.trim()) {
@@ -533,7 +598,7 @@ function CodeReviewDashboard() {
           )}
 
           <section className="grid gap-6 xl:grid-cols-[1.4fr_0.9fr]">
-            <article className="rounded-[32px] border border-slate-200/70 bg-white/90 p-6 shadow-soft backdrop-blur">
+            <article id="capture-review" className="rounded-[32px] border border-slate-200/70 bg-white/90 p-6 shadow-soft backdrop-blur">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <p className="text-lg font-semibold text-slate-900">
@@ -1032,7 +1097,7 @@ function CodeReviewDashboard() {
           </section>
 
           {result && hasImprovedCode && (
-            <section className="rounded-[32px] border border-slate-200/70 bg-white/90 p-6 shadow-soft backdrop-blur">
+            <section id="capture-before-after" className="rounded-[32px] border border-slate-200/70 bg-white/90 p-6 shadow-soft backdrop-blur">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <p className="text-lg font-semibold text-slate-900">Before vs After</p>
@@ -1053,7 +1118,7 @@ function CodeReviewDashboard() {
           )}
 
           {result?.files && result.files.length > 0 && (
-            <section className="rounded-[32px] border border-slate-200/70 bg-white/90 p-6 shadow-soft backdrop-blur">
+            <section id="capture-files" className="rounded-[32px] border border-slate-200/70 bg-white/90 p-6 shadow-soft backdrop-blur">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <p className="text-lg font-semibold text-slate-900">File Breakdown</p>
