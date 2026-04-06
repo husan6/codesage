@@ -70,7 +70,7 @@ export async function renderUserSummary(users: any[], selectedUserId: string) {
   return response.json();
 }`;
 
-const exampleGitHubUrl = 'https://github.com/octocat/Hello-World/pull/1347';
+const exampleGitHubUrl = 'https://github.com/octocat/Hello-World/blob/master/README';
 
 const categoryOrder: ReviewCategory[] = ['Bug', 'Security', 'Complexity', 'Improvement', 'Style'];
 
