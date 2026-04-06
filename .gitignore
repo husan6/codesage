@@ -16,3 +16,4 @@ coverage
 *.log
 *.pem
 *.key
+chrome-profile

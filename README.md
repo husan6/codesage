@@ -49,7 +49,15 @@ CodeSage is designed to feel closer to an assistant than a static analyzer. It d
 
 ## Screenshots
 
-Production screenshots will be added in a follow-up update once the image assets are saved under `docs/screenshots/`.
+Live production screenshots:
+
+![CodeSage dashboard overview](docs/screenshots/dashboard-overview.png)
+
+![CodeSage review findings](docs/screenshots/review-findings.png)
+
+![CodeSage score breakdown and review comments](docs/screenshots/score-breakdown.png)
+
+![CodeSage GitHub review workflow](docs/screenshots/github-review-view.png)
 
 ## Local setup
 
