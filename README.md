@@ -1,36 +1,55 @@
 # CodeSage
 
-CodeSage is a premium AI-powered code reviewer built with React, Vite, Express, and OpenAI. It works in two honest modes:
+CodeSage is a premium AI-powered code reviewer built with React, Vite, Express, and OpenAI. It helps teams review pasted snippets, uploaded files, GitHub files, and pull requests with transparent scoring, fix suggestions, and a polished review dashboard.
 
-- `Local review engine`: deterministic checks for bugs, security smells, complexity, and maintainability.
+It works in two honest modes:
+
+- `Local review engine`: deterministic checks for bugs, security smells, complexity, maintainability, and code quality.
 - `OpenAI + local checks`: hybrid analysis when `OPENAI_API_KEY` is configured on the server.
 
-## What it does
+## Highlights
 
-- Paste code or upload a source file for review
-- Review a GitHub pull request URL or GitHub file URL
-- Browse a GitHub repository and select an open pull request directly in the UI
-- Rank findings by severity and confidence
-- Surface line-aware bug, security, complexity, and style issues
-- Return language detection, quality score, risk level, strengths, and code metrics
+- Analyze pasted code or uploaded source files
+- Review GitHub file URLs and pull request URLs
+- Browse a GitHub repository and select open PRs inside the UI
+- Show ranked findings with severity, confidence, line numbers, and expandable details
+- Return fix suggestions, PR-style review comments, and before-vs-after code improvements
+- Explain score impact with a visible breakdown instead of a mystery number
+- Surface language detection, quality score, risk level, strengths, and code metrics
 - Support focused review modes: full, security, quality, and performance
 
-## Project structure
+## Tech stack
 
-- `frontend/` - React + Tailwind + Vite UI
-- `server/` - Express API and review engine
+- `frontend/`: React, TypeScript, Vite, Tailwind CSS
+- `server/`: Express, TypeScript, OpenAI API
 
-## Quick start
+## Why it stands out
 
-1. Install dependencies at the repo root:
-   - `npm install`
+CodeSage is designed to feel closer to an assistant than a static analyzer. It does not just label issues. It explains them, suggests fixes, simulates GitHub-style review comments, and shows how the code could improve.
+
+## Local setup
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
 2. Start the backend:
-   - `npm run dev --workspace server`
+
+```bash
+npm run dev --workspace server
+```
+
 3. Start the frontend:
-   - `npm run dev --workspace frontend`
+
+```bash
+npm run dev --workspace frontend
+```
+
 4. Open `http://localhost:5173`
 
-## Environment
+## Environment variables
 
 Create `server/.env` from `server/.env.example` if you want hybrid AI reviews:
 
@@ -47,31 +66,42 @@ Optional frontend override:
 VITE_API_BASE_URL=http://localhost:4000
 ```
 
-If `OPENAI_API_KEY` is missing, CodeSage still works using the built-in local review engine.
+Behavior notes:
 
-If `GITHUB_TOKEN` is missing, CodeSage can still review public GitHub PRs and file URLs, but private repos and rate-limited API calls will be restricted.
+- If `OPENAI_API_KEY` is missing, CodeSage still works using the built-in local review engine.
+- If `GITHUB_TOKEN` is missing, public GitHub reviews still work, but private repositories and higher-rate API access will not.
+- Never commit real keys. Keep secrets only in deployment environment variables.
 
 ## Verification
 
-TypeScript checks pass with:
+Run these checks from the repo root:
 
 ```bash
 npx tsc --noEmit -p server/tsconfig.json
 npx tsc --noEmit -p frontend/tsconfig.json
+npm run build --workspace server
+npm run build --workspace frontend
 ```
 
 ## Deployment
 
-Frontend:
+- Frontend: deploy `frontend/` to Vercel and set `VITE_API_BASE_URL`
+- Backend: deploy `server/` to Render or Railway and set `OPENAI_API_KEY`
+- Full launch steps: see `DEPLOYMENT.md`
 
-- Deploy the `frontend/` folder to Vercel
-- Set `VITE_API_BASE_URL` to your deployed backend URL
-- A starter Vercel config is included at `frontend/vercel.json`
+## Public repo safety
 
-Backend:
+- `.env` files, local env overrides, logs, keys, and local workspace state are gitignored
+- `server/.env.example` contains placeholders only
+- Secrets should live only in Vercel, Render, or Railway environment settings
 
-- Deploy `server/` to Render using `render.yaml`, or use the same settings on Railway
-- Required env vars: `OPENAI_API_KEY`
-- Recommended env vars: `OPENAI_MODEL`, `GITHUB_TOKEN`
+## Roadmap
 
-Exact step-by-step commands and setup notes are in `DEPLOYMENT.md`.
+- GitHub authentication for private repository selection
+- richer diff-aware fix generation
+- team review history and saved sessions
+- exportable review reports
+
+## License
+
+Released under the MIT License. See `LICENSE`.

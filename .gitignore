@@ -2,9 +2,17 @@ node_modules
 dist
 build
 .env
+.env.local
+.env.*.local
 .DS_Store
 npm-debug.log*
 yarn-error.log*
 **/pnpm-lock.yaml
 **/yarn.lock
 .sixth
+.vercel
+.render
+coverage
+*.log
+*.pem
+*.key
