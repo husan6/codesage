@@ -51,11 +51,19 @@ CodeSage is designed to feel closer to an assistant than a static analyzer. It d
 
 Live production screenshots:
 
+Dashboard overview:
+
 ![CodeSage dashboard overview](docs/screenshots/dashboard-overview.png)
+
+Findings with actionable fixes:
 
 ![CodeSage review findings](docs/screenshots/review-findings.png)
 
+Transparent score breakdown:
+
 ![CodeSage score breakdown and review comments](docs/screenshots/score-breakdown.png)
+
+GitHub review flow:
 
 ![CodeSage GitHub review workflow](docs/screenshots/github-review-view.png)
 
