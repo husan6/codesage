@@ -7,6 +7,19 @@ It works in two honest modes:
 - `Local review engine`: deterministic checks for bugs, security smells, complexity, maintainability, and code quality.
 - `OpenAI + local checks`: hybrid analysis when `OPENAI_API_KEY` is configured on the server.
 
+## Live Demo
+
+- Frontend: `https://codesage-frontend-one.vercel.app`
+- Backend: `https://codesage-api-1mv8.onrender.com`
+- Backend status: `https://codesage-api-1mv8.onrender.com/api/status`
+
+## Deployed Status
+
+- Frontend is live on Vercel
+- Backend is live on Render
+- Production snippet review is working end to end
+- The current live deployment is running in local review mode until `OPENAI_API_KEY` is added
+
 ## Highlights
 
 - Analyze pasted code or uploaded source files
@@ -26,6 +39,17 @@ It works in two honest modes:
 ## Why it stands out
 
 CodeSage is designed to feel closer to an assistant than a static analyzer. It does not just label issues. It explains them, suggests fixes, simulates GitHub-style review comments, and shows how the code could improve.
+
+## What to Try
+
+- Load the demo snippet and run a full review
+- Inspect ranked findings, fix suggestions, and score breakdown
+- Compare the before-vs-after fix preview
+- Switch to GitHub review and analyze a public PR or file URL
+
+## Screenshots
+
+Production screenshots will be added in a follow-up update once the image assets are saved under `docs/screenshots/`.
 
 ## Local setup
 
