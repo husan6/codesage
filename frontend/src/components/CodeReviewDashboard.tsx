@@ -598,7 +598,7 @@ function CodeReviewDashboard() {
           )}
 
           <section className="grid gap-6 xl:grid-cols-[1.4fr_0.9fr]">
-            <article id="capture-review" className="rounded-[32px] border border-slate-200/70 bg-white/90 p-6 shadow-soft backdrop-blur">
+            <article id="capture-editor" className="rounded-[32px] border border-slate-200/70 bg-white/90 p-6 shadow-soft backdrop-blur">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <p className="text-lg font-semibold text-slate-900">
@@ -853,7 +853,7 @@ function CodeReviewDashboard() {
           </section>
 
           <section className="grid gap-6 xl:grid-cols-[1.45fr_0.95fr]">
-            <article className="rounded-[32px] border border-slate-200/70 bg-white/90 p-6 shadow-soft backdrop-blur">
+            <article id="capture-review" className="rounded-[32px] border border-slate-200/70 bg-white/90 p-6 shadow-soft backdrop-blur">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <p className="text-lg font-semibold text-slate-900">Review findings</p>
@@ -978,7 +978,7 @@ function CodeReviewDashboard() {
                 <MetricCard label="Functions" value={result?.metrics.functionCount ?? '--'} />
               </div>
 
-              <div className="mt-6 rounded-[28px] border border-slate-200 p-5">
+              <div id="capture-score-breakdown" className="mt-6 rounded-[28px] border border-slate-200 p-5">
                 <p className="text-sm font-semibold text-slate-900">Findings by category</p>
                 <div className="mt-4 space-y-3">
                   {categoryOrder.map((category) => (
