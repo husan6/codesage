@@ -1,0 +1,13 @@
+{
+  "name": "codeant-ai-reviewer",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "server"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace frontend",
+    "frontend": "npm run dev --workspace frontend",
+    "backend": "npm run dev --workspace server"
+  }
+}
